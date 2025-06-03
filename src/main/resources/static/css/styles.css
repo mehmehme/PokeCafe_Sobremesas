@@ -1,0 +1,32 @@
+/* Navbar rosa pastel */
+.custom-navbar {
+    background-color: #ffcce7 !important; /* Rosa pastel */
+}
+
+/* Logo redondinha */
+.logo-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* Links brancos com pontinho antes */
+.nav-link {
+    color: white !important;
+    position: relative;
+    padding-left: 20px;
+}
+
+.nav-link::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: white;
+    font-size: 18px;
+}
+
+/* Efeito hover opcional (fica bonitão) */
+.nav-link:hover {
+    text-decoration: underline;
+}
