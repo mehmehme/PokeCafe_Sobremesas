@@ -10,7 +10,7 @@ COPY gradle gradle
 
 # Copia o arquivo de build do Gradle
 COPY build.gradle .
-COPY settings.gradle .
+COPY settings.gradle . # Incluído se você tiver settings.gradle
 
 # Copia o código-fonte da aplicação
 COPY src src
@@ -18,8 +18,8 @@ COPY src src
 # Dá permissão de execução ao script gradlew
 RUN chmod +x gradlew
 
-# Executa o build da aplicação, pulando os testes
-RUN ./gradlew bootJar -Pprod -x test
+# Executa o build da aplicação, pulando os testes e COM MAIS LOGS PARA DEPURAR
+RUN ./gradlew bootJar -Pprod -x test --stacktrace --info
 
 # Etapa final: cria a imagem definitiva com a aplicação empacotada com OpenJDK 21 Slim
 FROM openjdk:21-jdk-slim
@@ -28,7 +28,7 @@ FROM openjdk:21-jdk-slim
 VOLUME /tmp
 
 # Copia o arquivo .jar gerado na etapa de build para o contêiner final
-# AJUSTE ESTA LINHA: USE O NOME EXATO DO SEU JAR
+# O nome do JAR geralmente segue o padrão 'build/libs/nome-do-projeto-versao.jar'
 ARG JAR_FILE=build/libs/PokeCafe-0.0.1-SNAPSHOT.jar
 COPY ${JAR_FILE} app.jar
 
