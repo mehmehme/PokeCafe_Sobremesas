@@ -10,7 +10,7 @@ COPY gradle gradle
 
 # Copia o arquivo de build do Gradle
 COPY build.gradle .
-COPY settings.gradle . # Se tiver settings.gradle
+COPY settings.gradle .
 
 # Copia o código-fonte da aplicação
 COPY src src
@@ -19,7 +19,7 @@ COPY src src
 RUN chmod +x gradlew
 
 # Executa o build da aplicação, pulando os testes
-RUN ./gradlew bootJar -Pprod -x test # bootJar para criar o JAR executável, -x test para pular testes
+RUN ./gradlew bootJar -Pprod -x test
 
 # Etapa final: cria a imagem definitiva com a aplicação empacotada com OpenJDK 21 Slim
 FROM openjdk:21-jdk-slim
@@ -28,13 +28,11 @@ FROM openjdk:21-jdk-slim
 VOLUME /tmp
 
 # Copia o arquivo .jar gerado na etapa de build para o contêiner final
-# O nome do JAR geralmente segue o padrão 'build/libs/nome-do-projeto-versao.jar'
-# Ajuste o nome do JAR se o seu for diferente (ex: PokeCafe-0.0.1-SNAPSHOT.jar)
-ARG JAR_FILE=build/libs/*.jar
+# AJUSTE ESTA LINHA: USE O NOME EXATO DO SEU JAR
+ARG JAR_FILE=build/libs/PokeCafe-0.0.1-SNAPSHOT.jar
 COPY ${JAR_FILE} app.jar
 
 # Define o ponto de entrada para executar a aplicação Java
-# Usa java -jar para rodar o JAR executável
 ENTRYPOINT ["java", "-jar", "/app.jar"]
 
 # Expõe a porta 8080 para acesso externo à aplicação
