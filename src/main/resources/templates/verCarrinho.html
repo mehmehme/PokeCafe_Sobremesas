@@ -1,10 +1,47 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Carrinho</title>
-</head>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head}"></head>
 <body>
+<header th:replace="~{fragments/navbar :: navbar}"></header>
 
+<main class="container my-5">
+    <h1 class="text-center mb-4">Seu Carrinho de Compras</h1>
+
+    <div th:if="${carrinho != null and not #lists.isEmpty(carrinho)}">
+        <table class="table table-striped table-hover">
+            <thead class="table-dark">
+            <tr>
+                <th>Imagem</th>
+                <th>Nome</th>
+                <th>Descrição</th>
+                <th>Preço</th>
+                <th>Quantidade</th>
+                <th>Total</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="item : ${carrinho}">
+                <td><img th:src="@{'/images/' + ${item.imgUrl}}" alt="Imagem" style="width: 50px; height: auto;"></td>
+                <td th:text="${item.nome}">Nome do Item</td>
+                <td th:text="${item.descricao}">Descrição do Item</td>
+                <td th:text="${#numbers.formatDecimal(item.preco, 0, 2)}">Preço</td>
+                <td>1</td>
+                <td th:text="${#numbers.formatDecimal(item.preco, 0, 2)}">Total Item</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div class="text-end my-4">
+            <h4>Total do Carrinho: R$ <span th:text="${#numbers.formatDecimal(totalCarrinho, 0, 2)}">0.00</span></h4>
+            <a th:href="@{/finalizarCompra}" class="btn btn-success btn-lg">Finalizar Compra</a>
+        </div>
+    </div>
+
+    <div th:if="${carrinho == null or #lists.isEmpty(carrinho)}" class="alert alert-info text-center mt-3" role="alert">
+        Seu carrinho está vazio. Adicione itens para finalizar a compra.
+    </div>
+</main>
+
+<footer th:replace="~{fragments/footer :: footer}"></footer>
 </body>
 </html>

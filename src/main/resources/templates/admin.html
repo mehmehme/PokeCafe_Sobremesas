@@ -1,10 +1,65 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Admin</title>
-</head>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head}"></head>
 <body>
+<header th:replace="~{fragments/navbar :: navbar}"></header>
 
+<main class="container my-5">
+    <div class="text-center mb-4">
+        <h1 class="display-4">Painel Administrativo</h1>
+        <p class="lead">Gerencie todas as sobremesas do PokeCafe.</p>
+
+        <p class="mt-4">
+            <a th:href="@{/cadastro}" class="btn btn-primary">
+                Cadastrar Nova Sobremesa
+            </a>
+        </p>
+    </div>
+
+    <h2 class="text-center mb-4">Lista Completa de Sobremesas</h2>
+
+    <table class="table table-striped table-hover">
+        <thead class="table-dark">
+        <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Descrição</th>
+            <th>Categoria</th>
+            <th>Preço</th>
+            <th>Imagem</th>
+            <th>Deletado Em</th> <th>Ações</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="sobremesa : ${todasSobremesas}"> <td th:text="${sobremesa.id}">ID</td>
+            <td th:text="${sobremesa.nome}">Nome</td>
+            <td th:text="${sobremesa.descricao}">Descrição</td>
+            <td th:text="${sobremesa.categoria}">Categoria</td>
+            <td th:text="${#numbers.formatDecimal(sobremesa.preco, 0, 2)}">Preço</td>
+            <td><img th:src="@{'/images/' + ${sobremesa.imgUrl}}" alt="Imagem" style="width: 50px; height: auto;"></td>
+            <td th:text="${sobremesa.isDeleted} ? ${#dates.format(sobremesa.isDeleted, 'dd/MM/yyyy HH:mm')} : 'N/A'">Deletado Em</td>
+            <td>
+                <a th:href="@{'/editar/' + ${sobremesa.id}}" class="btn btn-sm btn-warning">Editar</a>
+                <span th:if="${sobremesa.isDeleted == null}">
+                            <a th:href="@{'/deletar/' + ${sobremesa.id}}" class="btn btn-sm btn-danger ml-2">Deletar</a>
+                        </span>
+                <span th:if="${sobremesa.isDeleted != null}">
+                            <a th:href="@{'/restaurar/' + ${sobremesa.id}}" class="btn btn-sm btn-success ml-2">Restaurar</a>
+                        </span>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div th:if="${mensagemSucesso}" class="alert alert-success mt-3" role="alert">
+        <span th:text="${mensagemSucesso}"></span>
+    </div>
+    <div th:if="${mensagemErro}" class="alert alert-danger mt-3" role="alert">
+        <span th:text="${mensagemErro}"></span>
+    </div>
+
+</main>
+
+<footer th:replace="~{fragments/footer :: footer}"></footer>
 </body>
 </html>
