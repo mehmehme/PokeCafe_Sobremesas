@@ -31,8 +31,7 @@
         <h2 class="text-center mb-4">Nossas Sobremesas</h2>
         <div class="container-cards">
             <div class="card" th:each="sobremesa : ${listaDeSobremesas}">
-                <img th:src="@{'/images/' + ${sobremesa.imgUrl}}" alt="Imagem da sobremesa">
-                <h2 th:text="${sobremesa.nome}">Nome da Sobremesa</h2>
+                <img th:src="@{'/images/' + ${sobremesa.imgUrl}}" alt="Imagem da sobremesa"> <h2 th:text="${sobremesa.nome}">Nome da Sobremesa</h2>
                 <p><strong>Descrição:</strong> <span th:text="${sobremesa.descricao}">Descrição do item</span></p>
                 <p><strong>Categoria:</strong> <span th:text="${sobremesa.categoria}">Categoria do item</span></p>
                 <p><strong>Preço:</strong> R$ <span th:text="${#numbers.formatDecimal(sobremesa.preco, 0, 2)}">Preço do item</span></p>

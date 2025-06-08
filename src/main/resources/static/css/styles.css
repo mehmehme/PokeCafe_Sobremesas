@@ -31,7 +31,7 @@
     text-decoration: underline;
 }
 
-/* ESTILOS DOS CARDS (ADICIONADOS DA SUA DUPLA) */
+/* ESTILOS DOS CARDS */
 .card {
     width: 300px;
     border: 1px solid #ccc;
@@ -43,10 +43,15 @@
     background-color: #a30316; /* Cor de fundo do card */
     color: white; /* Cor do texto no card, para contraste */
 }
+
+/* ESTILOS PARA PADRONIZAR O TAMANHO DAS IMAGENS DOS CARDS */
 .card img {
-    width: 100%;
+    width: 100%; /* Mantém a imagem responsiva dentro do card */
+    height: 200px; /* Define uma altura fixa para padronizar */
+    object-fit: cover; /* Faz com que a imagem cubra a área, cortando o excesso */
     border-radius: 10px;
 }
+
 .card h2 {
     margin: 10px 0 5px;
 }
@@ -74,4 +79,12 @@
     flex-wrap: wrap;
     justify-content: center;
     gap: 20px; /* Espaçamento entre os cards (opcional, pode ajustar) */
+}
+
+/* ESTILOS PARA PADRONIZAR O TAMANHO DAS IMAGENS NA TABELA ADMIN */
+table img { /* Seleciona imagens dentro de qualquer tabela */
+    width: 70px; /* Largura um pouco maior para melhor visualização na tabela */
+    height: 70px; /* Altura fixa para padronizar */
+    object-fit: cover; /* Faz com que a imagem cubra a área, cortando o excesso */
+    border-radius: 5px; /* Bordas levemente arredondadas */
 }
