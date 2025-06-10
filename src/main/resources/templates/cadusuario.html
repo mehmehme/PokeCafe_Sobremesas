@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head}"></head> <body>
+
+<main class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <h1 class="text-center mb-4">Cadastrar Usuário</h1>
+
+      <form th:action="@{/salvarusuario}" th:object="${usuario}" th:method="POST">
+        <input type="hidden" th:field="*{id}" />
+        <div class="mb-3">
+          <label for="username" class="form-label">Nome de Usuário:</label>
+          <input type="text" id="username" th:field="*{username}" class="form-control" required/>
+          <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="alert alert-danger mt-1"></div>
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Senha:</label>
+          <input type="password" id="password" th:field="*{password}" class="form-control" required/>
+          <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="alert alert-danger mt-1"></div>
+        </div>
+        <div class="form-check mb-3">
+          <input type="checkbox" id="isAdmin" th:field="*{isAdmin}" class="form-check-input"/>
+          <label class="form-check-label" for="isAdmin">Tornar Admin?</label>
+        </div>
+        <div class="d-grid gap-2 mt-4">
+          <button type="submit" class="btn btn-primary">Cadastrar</button>
+        </div>
+      </form>
+
+      <div th:if="${mensagemSucesso}" class="alert alert-success mt-3" role="alert">
+        <span th:text="${mensagemSucesso}"></span>
+      </div>
+    </div>
+  </div>
+</main>
+
+</body>
+</html>

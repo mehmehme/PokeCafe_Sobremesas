@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head}"></head>
+<body>
+<header th:replace="~{fragments/navbar :: navbar}"></header>
+
+<main class="container my-5 text-center">
+  <h1 class="display-4">Você foi desconectado.</h1>
+  <p class="lead">Obrigado por usar o PokeCafe!</p>
+  <a th:href="@{/index}" class="btn btn-primary mt-3">Voltar para a página inicial</a>
+</main>
+
+<footer th:replace="~{fragments/footer :: footer}"></footer>
+</body>
+</html>

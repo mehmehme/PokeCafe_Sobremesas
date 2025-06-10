@@ -1,10 +1,58 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Cadastro</title>
-</head>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head}"></head>
 <body>
+<header th:replace="~{fragments/navbar :: navbar}"></header>
 
+<main class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h1 class="text-center mb-4">Cadastrar Nova Sobremesa</h1>
+
+            <form th:action="@{/salvar}" th:object="${sobremesa}" th:method="POST">
+
+                <input type="hidden" th:field="*{id}" />
+
+                <div class="mb-3">
+                    <label for="nome" class="form-label">Nome da Sobremesa:</label>
+                    <input type="text" id="nome" th:field="*{nome}" class="form-control" />
+                    <div th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}" class="alert alert-danger mt-1"></div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="descricao" class="form-label">Descrição:</label>
+                    <textarea id="descricao" th:field="*{descricao}" class="form-control" rows="3"></textarea>
+                    <div th:if="${#fields.hasErrors('descricao')}" th:errors="*{descricao}" class="alert alert-danger mt-1"></div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="preco" class="form-label">Preço (R$):</label>
+                    <input type="number" step="0.01" id="preco" th:field="*{preco}" class="form-control" />
+                    <div th:if="${#fields.hasErrors('preco')}" th:errors="*{preco}" class="alert alert-danger mt-1"></div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="categoria" class="form-label">Categoria:</label>
+                    <input type="text" id="categoria" th:field="*{categoria}" class="form-control" />
+                    <div th:if="${#fields.hasErrors('categoria')}" th:errors="*{categoria}" class="alert alert-danger mt-1"></div>
+                </div>
+
+                <div class="d-grid gap-2 mt-4">
+                    <button type="submit" class="btn btn-success btn-lg">Salvar Sobremesa</button>
+                </div>
+            </form>
+
+            <div th:if="${mensagemSucesso}" class="alert alert-success mt-3" role="alert">
+                <span th:text="${mensagemSucesso}"></span>
+            </div>
+            <div th:if="${mensagemErro}" class="alert alert-danger mt-3" role="alert">
+                <span th:text="${mensagemErro}"></span>
+            </div>
+
+        </div>
+    </div>
+</main>
+
+<footer th:replace="~{fragments/footer :: footer}"></footer>
 </body>
 </html>

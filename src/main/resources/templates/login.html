@@ -1,15 +1,46 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="pt-br">
-<head th:replace="fragments/head :: head"><title>Bem-Vindo ao PokeCafe</title></head>
+<head th:replace="~{fragments/head :: head}"></head>
 <body>
 
-<div th:replace="fragments/navbar :: navbar"></div>
+<main class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <h1 class="text-center mb-4">Login</h1>
 
-<div class="principal">
+            <form name="f" th:action="@{/login}" method="post">
+                <fieldset>
+                    <legend class="h5 mb-3 text-center">Acesse sua conta PokeCafe</legend>
 
-</div>
+                    <div th:if="${param.error}" class="alert alert-danger mt-3" role="alert">
+                        Usuário ou senha inválidos.
+                    </div>
+                    <div th:if="${param.logout}" class="alert alert-success mt-3" role="alert">
+                        Você foi desconectado com sucesso.
+                    </div>
 
-<div th:replace="fragments/footer :: footer"></div>
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Nome de Usuário:</label>
+                        <input type="text" id="username" name="username" class="form-control" placeholder="Seu nome de usuário" required/>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Senha:</label>
+                        <input type="password" id="password" name="password" class="form-control" placeholder="Sua senha" required/>
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary">Entrar</button>
+                    </div>
+                </fieldset>
+            </form>
+
+            <p class="text-center mt-3">
+                Não tem uma conta? <a th:href="@{/cadusuario}">Cadastre-se aqui</a>
+            </p>
+
+        </div>
+    </div>
+</main>
 
 </body>
 </html>
